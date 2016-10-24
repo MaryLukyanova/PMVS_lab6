@@ -10,12 +10,13 @@ MODULE_AUTHOR("Mary Lukyanova");
 MODULE_VERSION("0.01");
 
 static struct timer_list my_timer;
-static int delay = 7;
-static int times_left = 4;
+static int delay = 5;
+static int times_left = 1;
 static struct kobject *mytimer_kobject;
 
 static void print_text(unsigned long data)
 {
+	printk(KERN_INFO "New init\n");
 	if (times_left > 0) {
 		printk(KERN_INFO "U r in lab 6\n");
 		times_left--;
@@ -41,7 +42,6 @@ static struct kobj_attribute times_left_attribute =__ATTR(times_left, 0660, myti
 static int mytimer_init(void)
 {
 	int error = 0;	
-
 	//create a kobject and place it in sysfs in the location
 	//underneath the specified parent kobject
 	mytimer_kobject = kobject_create_and_add("mytimer", kernel_kobj);
